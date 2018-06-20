@@ -1,0 +1,115 @@
+
+//----------------app.js----------------------
+// Init Gitlab
+const gituser = new GitUser;
+
+// Init UI
+const ui = new UI;
+console.log(ui);
+
+// Search Input
+const searchUser = document.getElementById('search-user');
+                                                                                      // joeybronzoni
+// Search input event listener
+searchUser.addEventListener('keyup', (e) => {
+  // Get input text
+  const userText = e.target.value;
+  let hubAvatar;
+  let labAvatar;
+//  hubAvatar = data.hubProfile.avatar_url; //joeybeebee
+// labAvatar = data.labProfile[0].avatar_url;               // joeybronzoni
+  if (userText !== '') {
+	// making the http call to both github & gitlab
+	gituser.getUser(userText)
+	  .then((data) => {
+		console.log('userText: ', userText);
+		if (!data) {
+		  // show alert
+		  console.log('NNOOOTTTFFOUCNd');
+		} else {
+		  // SHow profile
+		  console.log('YOUIY FOUND ME: ' ,data.hubProfile);
+		  console.log("Testthis.profile: ", ui.showProfile(data.hubProfile));
+		}
+	  });
+  } else {
+	console.log("CLEAR KIT ASDOUIF");
+	// clear profile
+  }
+
+
+
+});
+
+// TODO:
+/* Create this app to search for users on both github & gitlab
+   -
+   -
+   -
+*/
+//----------------End app.js----------------------
+
+
+//-----------------------github.JS//-----------------------github.JS
+// Github url:
+ //let urlUsers = `https://api.github.com/users/${user}`;
+
+// Gitlab url:
+//let urlUsers =`https://gitlab.com/api/v4/users?username=`
+
+////////////////////////////////////////////////////////////////////////////
+// // Gitlab //															  //
+// const client_id_gitlab='2373369';									  //
+// const client_secret_gitlab='_Et9_Cbr3zFMAfkeo13T';					  //
+// // GIthub //															  //
+// const client_id_github='5af34cfbfc1ad6036cad';						  //
+// const client_secret_github='3f7e421db5bbd6207f41be0306318593d6ec06cf'; //
+////////////////////////////////////////////////////////////////////////////
+
+class GitUser {
+  constructor() {
+//    this.lab_client_id = '2373369';
+//	this.lab_client_secret = '_Et9_Cbr3zFMAfkeo13T';
+	this.hub_client_id='5af34cfbfc1ad6036cad';
+	this.hub_client_secret='3f7e421db5bbd6207f41be0306318593d6ec06cf';
+  }
+
+  async getUser(user) { //
+	// Github url:
+	//let urlUsers = `https://api.github.com/users/${user}`;
+	// Gitlab url:
+	//let urlUsers =`https://gitlab.com/api/v4/users?username=`
+
+	// let labUrl=`https://gitlab.com/api/v4/projects?name=search=${user}&${this.lab_client_secret}&per_page=1`
+	let labUrl=`https://gitlab.com/api/v4/users?username=${user}&${this.lab_client_secret}&per_page=2`
+	let hubUrl = `https://api.github.com/users/${user}?client_id=${this.hub_client_id}&client_secret=${this.hub_client_secret}`;
+
+	const labProfileResponse = await fetch(labUrl);
+	const labProfile = await labProfileResponse.json();
+	const hubProfileResponse = await fetch(hubUrl);
+	const hubProfile = await hubProfileResponse.json();
+
+	return {
+	  hubProfile,
+	  labProfile
+	}
+  }
+};
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////
+// const http = new EasyHTTP,																 //
+// 	  userId =2373369,																		 //
+// 	  private_token = '_Et9_Cbr3zFMAfkeo13T';												 //
+// 																							 //
+// let usernameLab ='joeybronzoni',															 //
+// 	usernameHub ='joeybeebee',																 //
+// 	urlLab      = `https://gitlab.com/api/v4/users?username=${usernameLab}`,				 //
+// 	usersList   = "https://gitlab.com/api/v4/users?access_token=_Et9_Cbr3zFMAfkeo13T",		 //
+// 	urlUsers    = `https:gitlab.com/api/v4/projects/?${private_token}`,						 //
+// 	gitHubUsers = `https://api.github.com/users`,											 //
+// 	jph_put     = 'https://jsonplaceholder.typicode.com/users/2',							 //
+// 	jph_delete  = 'https://jsonplaceholder.typicode.com/users/2',							 //
+// 	jph_post    = 'https://jsonplaceholder.typicode.com/users';								 //
+///////////////////////////////////////////////////////////////////////////////////////////////
+//-----------------------End github.JS//-----------------------End github.JS
