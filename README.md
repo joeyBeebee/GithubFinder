@@ -1,7 +1,7 @@
 # Github Finder App
 
 
-![short demo of working todolist with django](https://raw.githubusercontent.com/joeybronzoni/GithubFinder/master/Github.gif?raw=true)
+![short demo of working GithubFinder App](https://raw.githubusercontent.com/joeybronzoni/GithubFinder/master/GithubFinder.gif?raw=true)
 
 
-![App demo](https://github.com/joeybronzoni/GithubFinder/blob/master/GithubFinder.jpg?raw=true)
+![App demo](https://github.com/joeybronzoni/GithubFinder/blob/master/GithubFinder.gif?raw=true)
