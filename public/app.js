@@ -16,13 +16,12 @@ searchUser.addEventListener('keyup', (e) => {
 	  .then(data => {
 		if (data.hubProfile.message === "Not Found") {
 
-		  ui.showAlert('User Not Found', 'alert');
+		  ui.showAlert('User Not Found', 'alert alert-danger');
 		} else {
 		  // Show profile
 		  ui.showProfile(data.hubProfile);
-
-
-
+		 // console.log('data.hubRepoResponse: ', data.hubRepoResponse);
+		  ui.showRepos(data.hubRepoProfile);
 
 		}
 	  });
